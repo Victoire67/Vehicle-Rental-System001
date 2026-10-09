@@ -4,6 +4,7 @@ MENU = """
 1. Upload a vehicle
 2. Show available vehicles
 3. Rent a vehicle
+4. Return a vehicle
 0. Quit
 """
 
@@ -57,6 +58,9 @@ def main():
                 vehicle = system.rent(vehicle_id, customer)
                 print(f"Rented: {vehicle}")
                 print(f"Cost for {days} days: {vehicle.rental_cost(days):.2f}")
+            elif choice == "4":
+                vehicle = system.return_vehicle(input("Vehicle id: ").strip())
+                print(f"Returned: {vehicle}")
             elif choice == "0":
                 break
             else:
