@@ -1,10 +1,14 @@
 from rental_system import RentalError, RentalSystem
+from datetime import date
 
 MENU = """
 1. Upload a vehicle
 2. Show available vehicles
 3. Rent a vehicle
 4. Return a vehicle
+5. Show all vehicles
+6. Delete a vehicle
+7. Book a vehicle for later
 0. Quit
 """
 
@@ -61,6 +65,19 @@ def main():
             elif choice == "4":
                 vehicle = system.return_vehicle(input("Vehicle id: ").strip())
                 print(f"Returned: {vehicle}")
+            elif choice == "5":
+                show(system.vehicles)
+            elif choice == "6":
+                show(system.vehicles)
+                system.delete(input("Vehicle id: ").strip())
+                print("Deleted.")
+            elif choice == "7":
+                show(system.vehicles)
+                vehicle_id = input("Vehicle id: ").strip()
+                customer = input("Your name: ").strip()
+                start = date.fromisoformat(input("Start date (YYYY-MM-DD): ").strip())
+                system.book(vehicle_id, customer, start)
+                print(f"Booked for {customer} from {start}.")
             elif choice == "0":
                 break
             else:
