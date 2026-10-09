@@ -16,10 +16,13 @@ class RentalSystem:
     def _save(self):
         save_vehicles(self.vehicles, self.path)
 
-        def find(self, vehicle_id):
-            for vehicle in self.vehicles:
+    def find(self, vehicle_id):
+          for vehicle in self.vehicles:
                 if vehicle.vehicle_id == vehicle_id:
                     return vehicle
+          for vehicle in self.vehicles:
+            if vehicle.vehicle_id == vehicle_id:
+                return vehicle
         raise RentalError(f"No vehicle with id {vehicle_id}.")
 
     def available_vehicles(self):
