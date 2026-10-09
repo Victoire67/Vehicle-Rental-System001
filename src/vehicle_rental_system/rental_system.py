@@ -1,5 +1,5 @@
 from storage import DATA_FILE, load_vehicles, save_vehicles
-from vehicles import VEHICLE_TYPES, IN_USE
+from vehicles import VEHICLE_TYPES, IN_USE , AVAILABLE , VEHICLE_TYPES
 
 REQUIRED_FIELDS = ["make", "model", "year", "registration", "daily_rate"]
 
@@ -45,5 +45,13 @@ class RentalSystem:
                 raise RentalError(f"{field} is required.")
         vehicle = VEHICLE_TYPES[kind](**details)
         self.vehicles.append(vehicle)
+        self._save()
+        return vehicle
+    def return_vehicle(self, vehicle_id):
+        vehicle = self.find(vehicle_id)
+        if vehicle.is_available:
+            raise RentalError("That vehicle is not rented out.")
+        vehicle.status = AVAILABLE
+        vehicle.rented_by = None
         self._save()
         return vehicle
