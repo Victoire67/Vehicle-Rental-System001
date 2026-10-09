@@ -1,6 +1,6 @@
 from storage import DATA_FILE, load_vehicles, save_vehicles
 from vehicles import VEHICLE_TYPES, IN_USE , AVAILABLE , VEHICLE_TYPES
-
+from datetime import date
 REQUIRED_FIELDS = ["make", "model", "year", "registration", "daily_rate"]
 
 
@@ -25,10 +25,17 @@ class RentalSystem:
     def available_vehicles(self):
         return [v for v in self.vehicles if v.is_available]
 
-    def rent(self, vehicle_id, customer):
+    def rent(self, vehicle_id, customer, today=None):
+        today = today or date.today()
         vehicle = self.find(vehicle_id)
         if not vehicle.is_available:
             raise RentalError("That vehicle is already in use.")
+        booking = vehicle.booking
+        if booking and date.fromisoformat(booking["start"]) <= today:
+            if booking["customer"] != customer:
+                raise RentalError(
+                    f"Reserved for {booking['customer']} from {booking['start']}.")
+            vehicle.booking = None
         vehicle.status = IN_USE
         vehicle.rented_by = customer
         self._save()
@@ -53,5 +60,15 @@ class RentalSystem:
             raise RentalError("That vehicle is not rented out.")
         vehicle.status = AVAILABLE
         vehicle.rented_by = None
+        self._save()
+        return vehicle
+    def book(self, vehicle_id, customer, start, today=None):
+        today = today or date.today()
+        vehicle = self.find(vehicle_id)
+        if vehicle.booking:
+            raise RentalError("That vehicle already has a booking.")
+        if start <= today:
+            raise RentalError("The booking date must be in the future.")
+        vehicle.booking = {"customer": customer, "start": start.isoformat()}
         self._save()
         return vehicle
