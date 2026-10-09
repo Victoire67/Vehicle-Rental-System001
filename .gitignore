@@ -38,3 +38,6 @@ build/
 *.swo
 *~
 .DS_Store
+
+# data
+data/
