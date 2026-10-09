@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+# Poetry typically stores envs globally in ~/.cache/pypoetry,
+# but if configured with `in-project = true`, it creates a local .venv:
+.venv/
+env/
+venv/
+ENV/
+
+# Poetry cache & artifacts
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Distribution / packaging artifacts
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store

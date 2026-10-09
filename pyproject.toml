@@ -1,0 +1,18 @@
+[project]
+name = "vehicle-rental-system"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "victoire67",email = "ansimavicky@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+]
+
+[tool.poetry]
+packages = [{include = "vehicle_rental_system", from = "src"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
