@@ -1,5 +1,5 @@
 from storage import DATA_FILE, load_vehicles, save_vehicles
-from vehicles import VEHICLE_TYPES, IN_USE , AVAILABLE , VEHICLE_TYPES
+from vehicles import VEHICLE_TYPES, IN_USE, AVAILABLE, VEHICLE_TYPES
 from datetime import date
 REQUIRED_FIELDS = ["make", "model", "year", "registration", "daily_rate"]
 
@@ -16,8 +16,8 @@ class RentalSystem:
     def _save(self):
         save_vehicles(self.vehicles, self.path)
 
-        def find(self, vehicle_id):
-          for vehicle in self.vehicles:
+    def find(self, vehicle_id):
+        for vehicle in self.vehicles:
             if vehicle.vehicle_id == vehicle_id:
                 return vehicle
         raise RentalError(f"No vehicle with id {vehicle_id}.")
@@ -53,6 +53,8 @@ class RentalSystem:
         vehicle = VEHICLE_TYPES[kind](**details)
         self.vehicles.append(vehicle)
         self._save()
+        # Self here means system
+
         return vehicle
 
     def return_vehicle(self, vehicle_id):
@@ -63,6 +65,7 @@ class RentalSystem:
         vehicle.rented_by = None
         self._save()
         return vehicle
+
     def book(self, vehicle_id, customer, start, today=None):
         today = today or date.today()
         vehicle = self.find(vehicle_id)
@@ -73,3 +76,8 @@ class RentalSystem:
         vehicle.booking = {"customer": customer, "start": start.isoformat()}
         self._save()
         return vehicle
+    def delete(self , vehicle_id):
+        print(f"Deleting car with id {vehicle_id}")
+        self.vehicles = [vehicle for vehicle in  self.vehicles if vehicle.vehicle_id != vehicle_id]
+
+        self._save()

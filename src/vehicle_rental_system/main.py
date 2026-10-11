@@ -21,16 +21,18 @@ EXTRA_QUESTIONS = {
 
 def upload(system):
     kind = input("Type (car/bike/truck): ").strip().lower()
+    print(f"The kind of vehicle is : {kind}")
     if kind not in EXTRA_QUESTIONS:
         raise RentalError("Type must be car, bike or truck.")
-    details = {
+    details = { # properties that are going to be on every vehicle
         "make": input("Make: ").strip(),
         "model": input("Model: ").strip(),
         "year": input("Year: ").strip(),
         "registration": input("Registration: ").strip(),
         "daily_rate": input("Daily rate: ").strip(),
     }
-    field, question = EXTRA_QUESTIONS[kind]
+    
+    field, question = EXTRA_QUESTIONS[kind] #are vehicle specific details
     details[field] = input(question).strip()
     vehicle = system.add_vehicle(kind, **details)
     print(f"Added: {vehicle}")
@@ -86,6 +88,6 @@ def main():
         except (RentalError, ValueError) as error:
             print(f"Error: {error}")
 
-
+    
 if __name__ == "__main__":
     main()
