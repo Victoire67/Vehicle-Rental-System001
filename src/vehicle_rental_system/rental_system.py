@@ -23,7 +23,7 @@ class RentalSystem:
           for vehicle in self.vehicles:
             if vehicle.vehicle_id == vehicle_id:
                 return vehicle
-        raise RentalError(f"No vehicle with id {vehicle_id}.")
+          raise RentalError(f"No vehicle with id {vehicle_id}.")
 
     def available_vehicles(self):
         return [v for v in self.vehicles if v.is_available]
