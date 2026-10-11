@@ -103,12 +103,4 @@ tests/
 - **Polymorphism:** Each subclass provides its own `rental_cost(days)` and `extra_fields()`. The rest of the program calls these on any vehicle without checking its type.
 - **Extensibility:** A new vehicle type needs one new subclass and one entry in `VEHICLE_TYPES`. The rental rules do not change.
 
-## Running the tests
-
-```bash
-poetry run python -m pytest
-```
-
-Add `-v` to list each test by name. The tests use a temporary file, so they never touch `data/vehicles.json`.
-
 
