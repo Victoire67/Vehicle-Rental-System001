@@ -5,6 +5,8 @@ MENU = """
 2. Show available vehicles
 3. Rent a vehicle
 4. Return a vehicle
+5. Show all vehicles
+6. Delete a vehicle
 0. Quit
 """
 
@@ -61,6 +63,12 @@ def main():
             elif choice == "4":
                 vehicle = system.return_vehicle(input("Vehicle id: ").strip())
                 print(f"Returned: {vehicle}")
+            elif choice == "5":
+                show(system.vehicles)
+            elif choice == "6":
+                show(system.vehicles)
+                system.delete(input("Vehicle id: ").strip())
+                print("Deleted.")
             elif choice == "0":
                 break
             else:
