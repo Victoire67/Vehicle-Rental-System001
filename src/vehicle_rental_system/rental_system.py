@@ -54,6 +54,7 @@ class RentalSystem:
         self.vehicles.append(vehicle)
         self._save()
         return vehicle
+
     def return_vehicle(self, vehicle_id):
         vehicle = self.find(vehicle_id)
         if vehicle.is_available:
